@@ -1,0 +1,24 @@
+Autoscaling-Launch configuration :(static autoscaling)
+================================
+pre-requisites:
+needs perfectly configured 1.parent ec2
+                           2.target group connected to parent ec2
+                           3.application load balancer attached to that target group
+                           4.Ready made own ami
+                           5.security group for autoscaling ec2s
+steps:
+->1.In ec2 dashboard  first select on launch configuration and give the following deails:
+      configuration name,select own ami,instance type you want to get autoscaled instance
+      enable monitering check box for metrics tracking,select the created security group,
+      select pem and launch the configuration.
+->2.Then click on autoscaling groups and give the following details:
+      autosacling group name,switch to launch configuration and select created configuration, 
+      select vpc,avaliablity zones,
+      attach load balancer target groups with selecting elb
+      in group size give same number (3 for all in my case) for desired capacity,miminum capacity and maximum capacity for static scaling
+      tags and notifiactions tabs are optional as required we can give.
+      finally review  and launch
+->3.In autoscaling activity we can observe the new created instances history>
+
+note:donot select enable instancescale-in protection
+    document to refer in case of autoscale not working:https://docs.aws.amazon.com/autoscaling/ec2/userguide/ts-as-instancelaunchfailure.html

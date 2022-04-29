@@ -1,0 +1,27 @@
+steps for vpc peering:
+================
+create two vpc's (for two regions or for one region) first region:10.0.0.0/16 and second region:10.1.0.0/16
+note: cidr for both vpc's should not be same.
+create public subnet in 1st vpc of a particular region.
+create private/public subnet in 2nd vpc of a particular region.
+create igw and attach it to first vpc in first region.
+create igw and attach it to second vpc in second region.
+create peering connection from origin and accept it on another destinated region.
+create route tables and add public subnet in public subnet associations and attach the peering connection with peer id and anywhere with igw id.
+create route tables and add private subnet in public subnet associations and attach the peering connection with peer id and anywhere with igw id.
+create 2 ec2's in two regions with custom vpc .
+firstly,connect to the first region's server and copy the second ec2 pem by using a new client , in that client less xxxxxx.pem and copy it on the ssh client to copy and provide permissions like chmod xxxx.pem and lastly connec to the private server of the second region.
+
+
+
+vpc-092a7c7703fe8c904
+vpc-0b0f444218b5c45bc
+
+
+015744501115
+vpc-092a7c7703fe8c904
+pcx-088aa389f173b6498
+ssh -i "rdsa.pem" ec2-user@ec2-18-222-122-159.us-east-2.compute.amazonaws.com
+chmod 400 rdsa.pem
+ssh -i "rdsa.pem" ec2-user@3.133.152.46
+chmod 400 rdsa.pem

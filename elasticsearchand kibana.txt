@@ -1,0 +1,66 @@
+  sudo su -
+  sudo apt-get update
+   13  sudo apt install openjdk-11-jdk
+   14  java -version
+   15  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+   16  apt-get install apt-transport-https
+   17  echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-7.x.list
+   18  sudo apt-get update -y
+   19  apt-get update && apt-get install elasticsearch---> 9200
+   20  ls -ltr
+   21  cd snap
+   22  ls -ltr
+   23  cd amazon-ssm-agent/
+   24  ls -ltr
+   30  cd /etc/
+   31  ls -ltr
+   32  cd elasticsearch
+   33  ls -ltr
+   34  vi elasticsearch.yml 
+---------------------------------------------------
+         discovery.type: single-node
+         network.host: 0.0.0.0
+          http.port: 9200
+--------------------------------------------------------
+   35  exit
+   36  systemctl start elasticsearch
+   37  systemctl enable elasticsearch
+   38  systemctl status elasticsearch	
+   39  systemctl restart elasticsearch
+   40  netstat -anlp | grep -i "9200"
+   41 # ss -antlp | sudo grep 9200
+   43  curl -X GET "0.0.0.0:9200"
+
+---------------------------------------------------------------------
+   44  sudo apt-get install logstash -y
+        sudo apt-get update && sudo apt-get install logstash
+   45  cd /etc
+   46  ls -ltr
+   47  cd logstash/
+   48  ls -ltr
+   49  cd conf.d/
+   50  ls -ltr
+   51  vi 02-beats-input.conf
+   52  exit
+   53  systemctl start logstash
+   54  systemctl enable logstash
+   55  systemctl status logstash
+   56  systemctl restart logstash ========>5044
+   57  history
+   58  apt-get install kibana -y
+         cd /kibana
+   59  vi /etc/kibana/kibana.yml
+   60  systemctl start kibana  —-->5601
+   61  systemctl enable kibana
+   62  systemctl status kibana
+   63  systemctl restart kibana
+   64  apt-get install filebeat -y
+         cd /filebeat
+   65  vi /etc/filebeat/filebeat.yml
+   66  systemctl start filebeat
+   67  systemctl enable filebeat
+   68  systemctl staus filebeat
+   69  systemctl status filebeat
+   70  systemctl restart filebeat
+  71 filebeat modules enable system
+   72  history

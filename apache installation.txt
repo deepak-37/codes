@@ -1,0 +1,34 @@
+Installing of Apache/httpd in instance/ec2:
+=================================================
+Prerequisites:
+1.Check whether the instance is in running stage or not.
+2. Then create the security group with (inbound rules ---ssh-22-myip & http-80--anywhere) based on the requirement by using security field.
+3.Go on to the downloads, right click & open Gitbash.
+4. type the command ls -l *.pem to know the list of pem files which you have downloaded.
+5. we use the command ssh -l pemfile ec2-user@public-ip to launch an instance.
+6. Switch to user by command— Sudo su -
+7.whoami command is used to check whether you are in ec2 or local.
+ 
+8. To install Apache/httpd in ec2 we use a command as-sudo yum install httpd -y
+ 
+9. To start an Apache/httpd we use command as---- sudo systemctl start httpd
+ 
+10. copy the public IP address of the instance and paste it on the browser!!
+Fetching data and running on instances:
+Cont.8: we need to switch from ec2-user to root user by using a command:   sudo su - (to switch user) needed to install the Apache/httpd in instance,
+After switching from ec2-user to root go on to the browser and paste the link given below: -
+https://www.free-css.com/template-categories/jquery= antifactory=repo
+ 
+select any webfile and press right click and copy the link and paste it on the instance of Apache service.
+ 
+Wget 
+https://www.free-css.com/assets/files/free-css-templates/download/page273/canvas.zip
+ls -l
+unzip canvas.zip
+ls -l
+cd canvas/
+ls-l
+pwd
+cp -r * /var/www/html/
+history
+10 Copy the ec2 public IP and paste it on the browser to open the html website.

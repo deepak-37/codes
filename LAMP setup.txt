@@ -1,0 +1,289 @@
+LAMP SETUP:
+============================================
+
+Lamp set up means
+ Linux apache mysql php
+-------------------------------------------------------------------------
+Prerequisite are
+We need to get code from internet
+# use below command to get code into local
+ mkdir jjjj
+# go to that directory and use wget command
+e:jjjj>wget https://wordpress.org/latest.tar.gz
+
+# we will get tar file like latest.tar.gz
+jjjj> tar -xvzf latest.tar.gz
+
+# we will get one folder like 
+ls -ltr
+total 18688
+drwxr-xr-x 1 pjvaa 197609        0 Jan 26 01:20 wordpress/
+-rw-r--r-- 1 pjvaa 197609 19128627 Jan 26 01:20 latest.tar.gz
+
+#go to wordpress list out  files
+# go to vs code and open the wordpress file
+# in vs code see list of files in left side
+# copy wp-config-sample.php and paste that file it comes with the name of wp-config-sample copy.php and rename that file as wp-config.php
+# goto github and create a repo by the name of wordpress-11 as a public access
+#open gitbash and open wordpress code location and give git init
+pjvaa@DESKTOP-OU4SABQ MINGW64 /e/jjjj/wordpress
+$ git init
+Initialized empty Git repository in E:/jjjj/wordpress/.git/
+
+# see the git status and we can see untracked files
+ git status
+#to add the untracked files use git add
+  git add .
+#once we give add command files will be tracked than we nee to see status
+ git status
+
+# then we need to commit that files
+ git commit -m “added WordPress code”
+
+# then we need to change branch master to main
+
+git branch -M main
+
+#then we need to give remote connection by using git remote command
+git remote add origin git@github.com:jyothi-92/wordpress-11.git
+#next we need to push the code to remote by using remote origin
+git push -u origin main
+#  we can see the code in git hub
+++++++++++++++++++++++++
+
+# we need to setup the infra to deploy the wordpress application
+
+We need 3 ec2’s 1.bastion
+                            2.wordpress
+ 		a3.jenkins {we have already}
+We need database(mysql) and cache(redis) and alb
+
+Security groups
+
+bation-sg(22- myip)
+alb-sg(80-anywhere    443- anywhere)
+wordpress-sg(22 from  bastion-sg  , 80 from alb-sg , 22 from jenkins-sg)
+Rds-sg (3306-wordpress-sg       3306-bastion-sg)
+Redis-sg (6379- wordpress-sg   6379-  bastion-sg)
+
+
+++++++++++++++++
+Creating 2 ec2 machines
+               RDS
+Create load balancer and target group
+In target group include wordpress ec2.
+Create 1 mysql database using RDS service
+** select mysql version 5.7.30
+      |||||
+     *****
+ *** Select production
+**** Give DB instance name
+**** give Master username and Master password(if you want you can select Auto generate a password)
+****  choose DB instance class standard (db.m5.xlarge)
+***** next we have have few options no need to change
+*** select  Availability & durability (Multi-AZ deployment)
+**** select default vpc
+**** public access -No
+*** select existing rds security group 
+*** click on create database
+       
++++++++++++++++
+#connect to the bastion with ssh ec2-user@pubip and add pub key of the bastion to the wordpress to connect.
+# we need to go wordpress ec2 and install prerequisites:
+#to go wordpress via bastion we need pem file in bastion
+#we need to copy pem file from local to bastion.we need to change file permission for pem
+  chmod 400 jyothi.pem
+# copy file from local to bastion using scp command
+  scp -i jyothi.pem jyothi.pem ec2-user@bastion pubip:/home/ec2-user/
+#login to the bastion using ssh
+ ssh -i jyothi.pem ec2-user@pubip of bastion
+# from bastion ec2 login to wordpress using private ip
+ ssh -i jyothi.pem ec2-user@private ip of wordpress
+#do telnet test
+   telnet private ip of wp 80
+Sudo su -
+
+Prerequisites in wordpress
+======================
+1.We need to install apache
+     yum install httpd && systemctl start httpd && systemctl enable httpd
+      Systemctl status httpd.
+
+# to check httpd active or not
+Ps -ef | grep -i “80”
+2.we need to install php in root user
+
+sudo amazon-linux-extras enable php7.4
+
+{ optional
+sudo yum clean metadata 
+sudo yum install php php-common php-pear 
+sudo yum install php-{cgi,curl,mbstring,gd,mysqlnd,gettext,json,xml,fpm,intl,zip}
+
+}
+---------------------------------------------------------------------------------------------------
+#to check php version 
+php --version
+
+#next we go into jenkins we do cicd
+# connect to jenkins using ssh 
+Ssh -i jyothi.pem ec2-user@publicip
+Goto root user and then goto jenkins user using
+ su - jenkins
+#to connect jenkins to wordpress we need to give jenkins id_rsa.pub key to wordpress  rootuser’s in #jenkins go to 
+cd .ssh
+Ls -ltr
+Id_rsa.pub id_rsa files will be there 
+Cat Id_rsa.pub
++++++
+#goto wordpress machine give 
+cd .ssh
+vi authorizedkeys { in authorized keys paste the jenkins pub file}
+
++++++++++++
+GO to Jenkins ui
+Create one folder(php project)
+
+Create one new job(wp-ci)
++++++++++++++++++
+1.in scm section give github ssh url
+
+git@github.com:jyothi-92/wordpress-11.git
+
+#if we get authentication failed error we need to give jenkins id_rsa.pub key to github
+
+2.#once build got success we can see the code in workspace
+  #then we need to zip the files and store into the s3 bucket
+#go to the job configuration in build tab we need to select execute shell
+   
+zip -r wp-$BUILD_NUMBER.zip *
+# we need to attach the role to jenkins
+#goto IAM—>create role—>in Trusted entity type(select Aws service→use case Ec2)-->next—>Add permissions(select AmazonS3FullAccess)-->next – ->give role name—>add tags—>create role
+#got to ec2’s and select jenkins ec2 —>actions—->security—->Modify IAM role—--->in dropdown options select role name—->save
+
+#create s3 bucket and copy the package into s3
+aws s3 cp wp-$BUILD_NUMBER.zip s3://html-application-artifactory/php-apps/
+
+#upto this steps we called as ci
+
+Creating CD job(wp-deploy)
+++++++++++++++++++++++++
+1.#we copy the file from s3 and deploy in to word press
+# bring the pkg from s3 jenkins/node workspace
+#1
+aws s3 cp s3://artifact-storage-devops/php-apps/wp-$pkg.zip .
+
+#2
+#if we have already content in webroot remove in remote(wp) from jenkins/node workspace
+ssh root@172.31.38.111 'rm -fr /var/www/html/*'
+#3
+# create temporary directory in remote server from jenkins/node
+ssh root@172.31.38.111 'mkdir /tmp/php'
+
+# copy the pkg from downloaded in step-1 to remote server temporary location
+scp wp-$pkg.zip root@172.31.38.111:/tmp/php
+
+#unzip the pkg in remote server temporary location
+ssh root@172.31.38.111 'unzip /tmp/php/wp-*.zip -d /tmp/php'
+
+# remove the temporary content of zip in remote server
+ssh root@172.31.38.111 'rm -f /tmp/php/*.zip'
+
+# extracted content should get copies to webroot 
+ssh root@172.31.38.111 'cp -r /tmp/php/* /var/www/html/'
+
+# remove the extracted content in temporary folder in remote server
+ssh root@172.31.38.111 'rm -fr /tmp/php/'
+
+# clear the workspace in jenkins/node
+rm -f wp-$pkg.zip
+
+++++++++++++++++
+note:
+if we are adding parameters no need to add pkg number.
+if not add directly the pkg number instead of $pkg . ex: pacakgename-x
+2. We need to check the code deployed into word press or not 
+# goto word press 
+ Cd /var/www/html/
+#we hava code then we need to give database connectivity
+
++++++++++++++++++++++++++++++++++++++++
+1.Go to bastion and from bastion we need to go data base.database don’t have public access
+2.to connect database from bastion we need mysql client.to install mysql client we need use below command
+ Yum install mysql
+3.login to bastion from root user we need to login mysql database
+#to login data base we need rds end point and master user and passwd
+mysql -h rdsendpoint -u username -p
+passwd:*********** [we need to give password]
+#you redirect to mysql promt
+4.we need to create database
+{ Mysql ]Create database name;
+
+5.create a separate user for application 
+
+CREATE USER 'new user'@'%' IDENTIFIED BY 'JCLrkq492PC49NF89N2PC';
+
+6.#grant all permissions to new user for new database
+GRANT ALL PRIVILEGES ON newproject.* TO 'newuser'@'%';
+
+7.give ; to quit from mysql promt
+8.log in with new user and password
+ mysql> show databases;
+#it shows 2 databases.
+#use database using use command
+Use new database name
+
+#then we need to update this details into wp-cofig.php file
++++++++++++++++++++++++++++++++++++++++++++
+
+#go to word press and check deployed path have wp-config.php files or not
+
+cd /var/www/html/
+#then give pwd we get /var/www/html path we have wp-cofig.php file.
+There we need to configure database details.for that we are using below commands
+-----------------------------------------------------------------------------------------------------------Here sed command is used to replace the content in a particular/specific file.------------------------------------------------------------------
+sed -i 's/database_name_here/newdatabasename/g' wp-config.php
+sed -i 's/username_here/databasenewuser/g' wp-config.php
+sed -i 's/password_here/*********/g' wp-config.php
+sed -i 's/localhost/wp-mysql-db.c90zyyq1bkgq.ap-south-1.rds.amazonaws.com/g' wp-config.php
+===================================================================================================================
+
+# after using this commands check the wp-config.php
+ In this file changes are done.
+
+
+# we are not supposed to expose databases details in scm.while building package we need to add the database details to wp-config.php.for that purpose we are copying wp-config.php to jenkins
+
+# go to jenkins  and swich to root user and go to /opt create one directory
+Cd /opt
+mkdir cred
+cd cred
+cred]$ vi wp-config.php   file need to create
+#goto word press in word press we have wp-config.php file copy the whole content in file and paste it in jenkins wp -config.php file and save that file.
+
+
++++++++++++++++++++++++++++
+1.goto jenkins wp-ci job —>goto configure—->in execute shell we have to give below commands.
+
+rm -fr wp-config.php
+cp /opt/cred/wp-config.php .
+zip -r wp-$BUILD_NUMBER.zip *
+aws s3 cp wp-$BUILD_NUMBER.zip s3://html-application-artifactory/php-apps/
+
+2.after writing the commands apply and save.then go to build job once job success build wp-deploy job.once deploy job also success
+Access from outsite by using alb end point.
+                     OR
+
+3.goto route53
+ Create a hosted zone
+ Create a CNAME record using alb end point.
+Access wordpress page using CNAME record in browser.
+4.you can access the wordpress page
+   After giving next
+It ask for database end point—-->next—->wordpress url:wordpress.jjjjjj.xyz
+userregistername(contentcreator)----->password —->save
+**** save username and password some where
+5.you will get one login page:login by using  username and password
+ It gives nice ui of wordpress
+6.in left side we can see few options in those options select appearance —->there you can set your default theme and you can edit the content.
+

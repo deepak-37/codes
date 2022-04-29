@@ -1,0 +1,76 @@
+wordpress installation:
+ ==========================================
+yum install httpd -y
+   41  yum install php-mysql -y
+   42  amazon-linux-extras install php7.3 -y
+   43  systemctl enable httpd --now
+   44  cd /var/www/html/
+   45  ls
+   46  wget http://wordpress.org/latest.tar.gz
+   47  ls
+   48  tar -zxvf latest.tar.gz
+   49  ls
+   50  cd wordpress/
+   51  ls
+   52  cd /var/www/html/
+   53  cd .ssh
+   54  vi authorized_keys
+   55  which git
+   56  yum update -y
+   57  amazon-linux-extras install java-openjdk11
+   58  yum install httpd -y
+   59  yum install php-mysql -y
+   60  apt-get install php
+   61   amazon-linux-extras | grep php
+   62  amazon-linux-extras enable php7.4
+   63  amazon-linux-extras enable php7.2
+   64  sudo amazon-linux-extras enable php7.2
+   65  sudo amazon-linux-extras enable php7.3
+   66  yum clean metadata
+   67  yum install php-cli php-pdo php-fpm php-json php-mysqlnd
+   68  php --version
+   69  exti
+   70  exi
+   71  exit
+   72  php --verison
+   73  php --version
+   74  phpnd --version
+   75  phpnd --version
+   76  amazon-linux extras install php 7.2
+   77  sudo yum update -y
+   78  sudo yum install amazon-linux-extras -y
+   79  sudo amazon-linux-extras | grep php
+   80  sudo amazon-linux-extras enable php7.4
+   81  sudo amazon-linux-extras enable php7.2
+   82  sudo amazon-linux-extras enable php7.3
+   83  yum clean metadata
+   84  yum install php-cli php-pdo php-fpm php-json php-mysqlnd
+   85  cd /var/www/html/git clone  git@github.com:Venkatesh-somarapu15/aws-wordpress.git
+   86  
+   87  yum install git -y
+   88  git clone  git@github.com:Venkatesh-somarapu15/aws-wordpress.git
+   89  git clone https://github.com/Venkatesh-somarapu15/aws-wordpress.git
+   90  ll
+   91  php --version
+   92  mysql -h database-1.cixf8z5wegyv.us-east-1.rds.amazonaws.com -u venky -p
+   93  yum install mysql -y
+   94  mysql -h database-1.cixf8z5wegyv.us-east-1.rds.amazonaws.com -u venky -p
+   95  ll
+   96  systemctl stop httpd
+   97  systemctl start httpd
+   98  php --version
+   99  wget https://wordpress.org/latest.tar.gz
+  100  ll
+  101  tar -xvzf latest.tar.gz
+  102  ll
+  103  rm -rf latest.tar.gz
+  104  ll
+  105  cd wordpress/
+  106  ll
+  107  systemctl stop httpd && systemctl start httpd
+  108  mv wp-config-sample.php wp-config.php
+  109  ll
+  110  echo '' > wp-config.php
+  111  cat wp-config.php
+  112  vi wp-config.php
+  113  history

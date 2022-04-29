@@ -1,0 +1,41 @@
+Requesting the SSL certificate:
+================================
+
+* For routing the traffic HTTP to HTTPS, we need an SSL(secure socket layer) certificate
+
+* In  AWS, We have the service, where you will get an SSL certificate
+
+* The service name is called, ACM (AWS Certificate Manager)
+
+* In ACM, you have to request the certificate for your registered domain 
+
+* when you are entering your domain, you should enter it like this ” *.domain.name”
+
+* After requesting the certificate, it is in a pending state
+
+* For approval, you have to create a record, in the ACM only, you will get the option to create a record
+
+* After the creation of the record, just refresh the page once, your SSL certificate will get verified
+
+Attach SSL certificate
+========================
+
+* To attach the SSL certificate, we need a load balancer
+
+* Internally, we attach to the Listeners
+
+* In the Listener, we will go with host_based rule----because we are accessing with domain name
+
+* As all of us knows, when we are creating the Load Balancer, we will get one default listener
+
+*Firstly, the request will come with HTTP(insecure) to the listener, and later we have to redirect to the HTTPS(secure). Here, you have to attach your SSL certificate
+
+* Then Add the new Listener
+
+* In the new Listener, we have to forward the request to the Target group
+
+* In the Target Group, we will attach a group of Ec2’s
+
+* Clear the cache memory and history of the browser 
+
+* Then access with your domain record, your request will come to HTTPS protocol

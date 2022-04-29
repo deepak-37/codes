@@ -1,0 +1,11 @@
+cloning process
+========================
+	Make sure to watch ur connecting to server with ssh or https.
+	after installing the apk servers and git in ec2 / environment ,clone the repo from the  remote location.
+	git clone xxxxxxxxxxxxxxxxxxxx------link-------------xxxxxxxxxxxxxxxx
+	cd ~
+	ls -l
+	cd x--folder
+	ls -l
+	cp -r * /var/www/html/
+	and finally copy the publicip of the ec2 and paste it on the http client(browser) to get a page.

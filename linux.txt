@@ -1,0 +1,12 @@
+version:uname
+uname -a :kernel version
+arch:bit (architecture)
+free -m : memory usage
+df -h :disc usage(disc fragmentation)
+number of cpu :
+os:
+
+
+
+disc usage full how do you solve?
+cpu is high,how do you solve?

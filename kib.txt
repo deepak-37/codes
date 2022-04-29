@@ -1,0 +1,6 @@
+ec2
+ubuntu
+all traffic
+=======
+ctr+O
+ctrlx

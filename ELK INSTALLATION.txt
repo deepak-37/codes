@@ -1,0 +1,263 @@
+
+ELK WAY 1: (In amazon-linux server)
+===============
+ELK  Stack Installation    ----------------------->>       sg(22-myip , 80, 9200, 5044,5601(anywhere)                             9200--elastic search, 5044--logstash, 5601---kibana
+========================================================================
+
+#Login as a root user
+sudo su -
+
+Install Elastic Search
+---------------------------------------------------
+
+# rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+Create a file called elasticsearch.repo in the /etc/yum.repos.d/ directory for RedHat based distributions and Added below lines
+
+# vi /etc/yum.repos.d/elasticsearch.repo
+
+[elasticsearch]
+name=Elasticsearch repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=0
+autorefresh=1
+type=rpm-md
+
+Install the Elasticsearch package
+
+#yum install --enablerepo=elasticsearch elasticsearch -y
+
+To configure Elasticsearch to start automatically when the system boots up, run the following commands:
+
+#/bin/systemctl daemon-reload
+
+#/bin/systemctl enable elasticsearch.service
+
+Start the Elasticsearch service as follows.
+
+#systemctl enable elasticsearch.service
+#systemctl start elasticsearch.service
+#systemctl status elasticsearch.service
+
+				{       Directory Structure for Elastic Search
+
+				https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html    }
+
+
+Kibana
+-----
+
+rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+vi /etc/yum.repos.d/kibana.repo
+
+
+[kibana-7.x]
+name=Kibana repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+
+
+
+yum install kibana -y
+
+
+systemctl enable kibana.service
+systemctl start kibana.service
+systemctl status kibana.service
+systemctl restart kibana.service
+
+
+
+
+{     https://www.elastic.co/guide/en/kibana/7.8/rpm.html#rpm-repo   }
+
+
+Logstash
+---------
+rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+vi /etc/yum.repos.d/logstash.repo
+
+[logstash-7.x]
+name=Elastic repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+
+
+ yum install logstash -y
+
+
+systemctl enable logstash.service
+
+systemctl start logstash.service
+
+go on to the kibana yml file.
+
+cd /etc/kibana
+ls -la  (to know the list)
+from the list go on to the kibana.yml file.
+vi kibana.yml
+in that file remove # for few lines
+restart the kibana service.
+
+
+_____________________________________________________________________________________________________________________________________
+
+
+ELK WAY 2: (In Ubuntu server)
+-----------------
+
+ELK:
+===========
+ sudo apt-get update -y
+    2  sudo apt-get upgrade -y
+    3  sudo apt-get install openjdk-11-jdk wget apt-transport-https curl gnupg2 -y
+    4  java -version
+    5  sudo wget -q0 -https://artifacts.elastic.co/GPG-KEY-elasticsearch --no-check-certificate | sudo apt-key add -
+    6  sudo wget -q0 - https://artifacts.elastic.co/GPG-KEY-elasticsearch --no-check-certificate | sudo apt-key add -
+    7  sudo wget -qo - https://artifacts.elastic.co/GPG-KEY-elasticsearch --no-check-certificate | sudo apt-key add -
+    8  sudo apt-get install nginx -y
+    9  sudo systemctl start nginx
+   10  sudo systemctl status nginx
+         sudo systemctl enable nginx
+   11  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+   12  echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
+   13  sudo apt-get update
+   14  sudo apt-get install elasticsearch
+   15  sudo nano /etc/elasticsearch/elasticsearch.yml
+   16  sudo nano /etc/elasticsearch/jvm.options
+   17  sudo systemctl start elasticsearch
+   18  sudo systemctl enable elasticsearch
+   19  sudo systemctl status elasticsearch
+   20  sudo curl -XGET http://localhost:9200
+   21  rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+   22  import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+   23  vi /etc/yum.repos.d/logstash.repo
+   24  ll
+   25  sudo apt-get install logstash -y
+   26  sudo nano /etc/logstash/conf.d/02-beats-input.conf
+   27  sudo systemctl start logstash
+   28  sudo systemctl enable logstash
+   29  sudo systemctl status logstash
+   30  sudo systemctl restart logstash
+   31  sudo apt-get install kibana -y
+   32  sudo nano /etc/kibana/kibana.yml
+   33  sudo systemctl start kibana
+   34  sudo systemctl enable kibana
+   35  sudo systemctl status kibana
+   36  sudo systemctl restart kibana
+   37  sudo apt-get install filebeat -y
+   38  sudo nano /etc/filebeat/filebeat.yml
+   39  sudo systemctl start filebeat
+   40  sudo systemctl enable filebeat
+   41  sudo systemctl status filebeat
+   42  sudo systemctl restart filebeat
+   43  sudo filebeat modules enable system
+   44  sudo filebeat setup --index-management -E output.logstash.enabled=false -E 'output.elasticsearch.hosts=["0.0.0.0:9200"]'
+
+
+
+
+
+ELK WAY 3: (dont do this in prod)--ubuntu server
+===============
+
+sudo su -
+
+ssh -i <path to .pem file> ubuntu@<dns name>
+
+sudo apt-get update
+
+sudo apt-get upgrade
+
+sudo apt-get install default-jre
+
+java -version
+
+sudo apt-get install nginx
+
+sudo systemctl start nginx
+
+sudo systemctl enable nginx
+
+sudo systemctl status nginx
+
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+
+echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
+
+sudo apt-get update
+
+sudo apt-get install elasticsearch
+
+sudo nano /etc/elasticsearch/elasticsearch.yml
+
+network.host: 0.0.0.0
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+
+sudo nano /etc/elasticsearch/jvm.options
+
+-Xms128m
+-Xmx128m
+
+sudo systemctl start elasticsearch
+
+sudo systemctl enable elasticsearch
+
+sudo systemctl status elasticsearch
+
+sudo curl -XGET http://localhost:9200
+
+sudo apt-get install kibana
+
+sudo systemctl start kibana
+
+sudo systemctl enable kibana
+
+sudo systemctl status kibana
+
+echo "kibanaadmin:`openssl passwd -apr1`" | sudo tee -a /etc/nginx/htpasswd.users
+
+sudo nano /etc/nginx/sites-available/<public ip>
+
+server {
+    listen 80;
+
+    server_name <public ip>;
+
+    auth_basic "Restricted Access";
+    auth_basic_user_file /etc/nginx/htpasswd.users;
+
+    location / {
+        proxy_pass http://localhost:5601;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+sudo ln -s /etc/nginx/sites-available/<public ip> /etc/nginx/sites-enabled/<public ip>
+
+sudo nginx -t
+
+sudo systemctl restart nginx
+
+sudo ufw allow 'Nginx Full'
+
+scp -i <path to .pem file> <path to sample-movies.bulk file> ubuntu@<dns name>:sample-movies.bulk
+
+sudo curl -XPOST http://localhost:9200/_bulk?pretty --data-binary @sample-movies.bulk -H "Content-Type: application/json"

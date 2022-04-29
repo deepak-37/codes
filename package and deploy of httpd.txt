@@ -1,0 +1,12 @@
+package
+#zip -r demo-dev-package-$BUILD_NUMBER.zip *
+zip -r demo-dev-package-$BUILD_NUMBER.zip . -i *
+aws s3 cp demo-dev-package-$BUILD_NUMBER.zip s3://dev-test-zip/
+
+Deploy
+==========
+rm -fr *
+aws s3 cp s3://dev-test-zip/demo-dev-package-$CHOICE.zip . 
+unzip demo-dev-package-$CHOICE.zip 
+ssh root@172.31.34.77 'rm -fr /var/www/html/*'
+scp -r * root@172.31.34.77:/var/www/html/

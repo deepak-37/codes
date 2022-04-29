@@ -1,0 +1,129 @@
+
+WORKING WITH SCM:
+	Go on to the folder index.html
+	Open Gitbash in the folder index.html
+	Git branch--to know the current branch
+	Main branch will be deployed in prod
+	Instead of creating code through from main to prod , we’ll create our own-branch/feature-branch.
+	Git checkout -b feature-branch ---to create a branch and it switches.
+	Git branch---> to know current branch.
+	Git checkout main--to switch to main
+	Git log ----------------to know the no of commits and check the head------main/feature-branch
+	Ls -ltrh      ------------- to know the no of files
+	Touch index.html ---to create a file.
+	Git init --------------------> to create a empty local repo.
+	Git status--------------- to know the status
+	Git add . ---------------- to track
+	Git commit -m ‘message’-----> to move files from staging area to local repo.
+	Git status--------------- to know the status
+	Git log ----------------to know the no of commits and check the head------main/feature-branch.
+	Git show xxcommit idxx -------------->to get a detailed view of an particuar commit.
+	Git diff -a ----------------> to know the file changes.
+	Git pull == auto merge
+	Git merge == pull and merge.
+	Git rebert -------------->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

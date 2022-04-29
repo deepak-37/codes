@@ -1,0 +1,16 @@
+deployment strategies:
+=============
+1. In our organization, we are following these kinds of strategies for deployment.
+2.  Thera are 2 types of deployment strategies:
+        a)recreate deployment.
+        b) rollout deployment.
+---> recreate depoyment is the simplest deployment strategy
+----> for suppose ver.1 of the app is deployed and we have ver.2 to be deployed.
+---->In this case ver1 will be deleted /terminated and ver2 will be deployed.
+----> In this strategy, there will be  a down time.
+
+----->rollout deployment is one of the deployment strategy.
+-----> In this strategy, in ver1, there are 50 machines and In ver2, there is 50 machines.
+-----> first in ver2, we will deploy 10 machines and In ver1 we will delete/terminate 10 machines.
+-----> In this deployment strategy there is no downtime and there will be no impact to the end-users.
+-----> In this case, ver1 which is old considered as blue and ver2 which is the latest one willl be considered as green

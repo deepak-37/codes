@@ -1,0 +1,11 @@
+changing port number of jenkins in ec2 :
+=============================
+   1  vi bob.sh
+    2  ls -l
+    3  chmod 755 bob.sh
+    4  ls -l
+    5  sh bob.sh
+    6  vim /etc/sysconfig/jenkins
+    7  systemctl restart jenkins
+    8  systemctl status jenkins
+  and change in the sg as well.

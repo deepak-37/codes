@@ -1,0 +1,27 @@
+Installing of nginx and working on it:
+===========================================
+1.Check whether the instance is in running state or not.
+2. Then create the security group (inbound rules--- ssh-22-myip & http-80--anywhere) based on the requirement by using security field.
+3.Go on to the downloads, right click & open Gitbash.
+4. type the command ls -l *.pem to know the list of pem files which you have downloaded.
+5. we use the command ssh -l pemfile ec2-user@public-ip to launch an instance.
+6. after connecting to an instance switch to root user by using a command --- sudo su -
+6. whoami command is used to check whether you are in ec2 or local.
+7. To install nginx in ec2 we use a command as-sudo yum install nginx -y
+ 
+8.# sudo amazon-linux-extras install nginx1
+9. To start/stop a nginx we use command as----- sudo systemctl start/stop nginx and sudo yum update –-- if needed.
+9.copy the public IP address of the instance and paste it on the browser!!
+In the browser you will get a sample page
+--- from there u will use the path in last like---
+ 
+/loc/ation/of/ngix/ copy this one and paste it on the cp -r * /loc/ation/of/ngix/
+ 
+wget link
+ls -l 
+unzip ___.zip
+ls -l
+cd ____/
+ls -l
+cp -r * /loc/ation/of/ngix/ click yes to overwrite if the machine has asked you.
+then refresh the website webpage.

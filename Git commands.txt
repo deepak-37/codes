@@ -1,0 +1,51 @@
+GIT commands:(Linux)
+=======================================================================
+Ssh -I abc.pem ec2-user@publicip (to connect ec2)
+Ssh -I -vvv abc.pem ec2-user@publicip (to know where to debug)
+Pwd --->To know path. 
+Whoami ---->To know the username used to login.
+date---->To know time.
+hostname---->To know Laptop or server name.
+uptime---->To know the last restarted time.
+history---->To know the commands list I have used previously.
+ls---->To know the name of the files.
+ls -l--->To know the detailed information.
+mkdir--->To create folder.
+free-m---->To check ram.
+ls -l *.pem----->To check all pem files.
+Ctrl+ A__________ Ctrl+ E
+ctrl+r---->To search something in the information.   → right arrow to get that entire command.
+id root-->To check whether the root user is there or not.
+Id user🡪 To check user is there or not.
+who--->To know how many users have been logged in.?
+tracert🡪 To know the path from local to ec2.
+Traceroute/ Tracepath--->To know the path from ec2 to local.
+ps -ef-->To know which service is running.
+ps -ef | grep ssh--->To filter the information in previous by "ssh" word in this case.
+Sudo su -   -🡪command is used to switch user.
+sudo yum install httpd -y-->To install apache httpd(apache) in this case. yum (to install any software).
+sudo systemctl start httpd-->To start the apache.
+whoami----> To know the current user.
+who am i --->By which user we have logged in with?
+df -->To see hard disc usage.
+free/top ---> To check memory, CPU, load average etc.,
+systemctl enable httpd---> To start os level service if restarted or rebooted, the service won’t be down.
+Last: last command is used to know whom have been logged in or out.
+ls -ltr *.pem--> To get pemfile old to latest.
+#! /bin/bash--> Shell script starts with this command.
+scp -i <pemfile name> <same pemfile name> ec2-user@publicip of bastian:/tmp or :/opt or :/home/ec2-user---> To bring the pemfile from local to ec2.
+Exit/logout: is used to logout from ec2.
+telnet/nc -uz---🡪command is used to check the port no is allowed to the destination or not.
+/div   ---🡪device (hard disk)
+Df -h -🡪Command is used to know how many disks attached.
+Lsblk   / F disk -l -🡪Command is used to know the list of blocks
+Tee -🡪 Command is used to print content in screen as well as file.
+Ls – ltrh -🡪 To know the size of the pem.
+WC -L 🡪Filename
+WC -W 🡪Words in a file.
+WC -C 🡪
+I -🡪to insert.
+
+:wq! -🡪Force Quit.
+:wq 🡪quit
+Esc + :wq! -🡪write and force quit.

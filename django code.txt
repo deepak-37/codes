@@ -1,0 +1,62 @@
+django code:
+=======================================
+sg -----22 myip , 80--anywhere, 8000---anywhere.
+os: -----ubuntu
+ssh ubuntu@publicip of django.
+
+django deployment in ec2 by connecting to the rds:
+=================================================
+
+    3  git clone https://github.com/Saikrishnareddy12345/mysql_django.git
+    4  ll
+    7  apt-get update
+    8  apt-get upgrade -y
+    9  apt install python3-pip
+   10  pip install django
+   11  apt-get install python3-dev
+   12  apt-get install python3-dev libmysqlclient-dev
+   13  pip install mysqlclient
+   14  ll
+   15  cd mysql_django/
+   16  ll
+   17  python3 manage.py runserver
+   18  pip install widget_tweaks
+   19  pip install django-widget_tweaks
+   20  ll
+   21  cd mysql_django/
+   22  ll
+   23  vi settings.py
+=========================================
+BASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'dj',       -------> ( add created db name in rds)
+        'USER': 'appuser',   --->(add created user in rds)
+        'PASSWORD': 'JCLrkq492PC49NF89N2PC', (add created password in rds)
+        'HOST': 'database-1.cixf8z5wegyv.us-east-1.rds.amazonaws.com', (rds endpoint )
+        'PORT': '3306',
+============================================================
+   24  mysql -h database-1.cgucwfkgb7ft.ap-south-1.rds.amazonaws.com -u admin -p (to check django is connected to rds or not).
+   25  apt install mysql-client-core-8.0   					                   (to install mysql client in server and to connect from server)
+   quit from rds.
+       ---> mysql_django// cd mysql_django/
+         cd ..
+   29  python3 manage.py runserver
+   30  python3 manage.py makemigrations
+   31  python3 manage.py makemigrate
+   32  python3 manage.py migrate
+   33  python3 manage.py runserver
+   34  python3 manage.py runserver 0.0.0.0:8000
+   history
+
+
+
+
+   rds===database===user===access===
+   settings.py===
+   admin
+   kBPvd4fSFkXEMSYgt6QE
+
+
+   ec2
+   rds

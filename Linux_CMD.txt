@@ -1,0 +1,331 @@
+COMMANDS
+==========
+
+       Distrotest.net----------> It's a platform to perform Linux commands.
+       ls                  ---long list of files
+       ls -la              ---to see the long list of hidden files
+       ls -lt              ---to see the long list of creation date in Ascending order
+	ls -ltr(longlist,time,reverse) ---to see the long list of creation date in Descending order
+	ls -ltrh            ---to see the long list of creation date in Descending order with the size in KB/MB
+	ls .. ---------shows the contents of home directory.
+	lsblk   ------ To know the list of Block devices
+       ls -ld <file>  --- To find the particular file
+	last		--- To know when the machine has been re-started
+	pwd ---------> present working directory.
+	Man <command> ---> opens manual/guide for reference.
+	Cd -------------> To open Directory.
+	Cd ~ -----------> To change our path to home directory.
+	Cd .. -------- to our home directory.
+	Cd -  -------- shows last working directory.
+	Ctrl + c --------> to kill a process
+	Sleep 10
+	To list all ------->ls -a or  ls - - all or ls -all -l (for more detailed list)
+	mkdir  ---- To create a directory.
+	touch ----- To create a file and files ex: touch docs and touch docs docs1
+              ------To change the previous creation time/date to current time/date
+	rm xxxxx ----- to remove file.
+	rm -r xxxxx ----- to remove directory.
+	rm -rf xxxxx ----- to remove directory forcefully
+	echo “hello world” > filename ----->to input the data into the file.
+	mv ---- used to move a file in new directory and to rename a file in same directory.
+       cat,vi,more,less <filename>   ---to view the content of an file.
+	chmod               ---change permission
+	sudo su -           ---shift to root user
+	su - <user>          ---shift to <user>
+	ifconfig(Linux)/ipconfig(windows) ---to get ip of machine
+	uptime              ---when the server was started
+	wget                ---To Download And To know the speed of the download
+	date                ---To know the current date
+	pwd                 ---present word directory
+	which               ---gets details
+	where               ----To know the path
+	find                ---To find the particular thing
+	grep                ---we use to filter
+	nl                  ---It gives the numbers to the existing lines
+	-xvzf		    ---To extract the package
+	-tvzf               ---To view the content without extracting
+	netstat -anlp(all,numeric,list,port/processID)----- It checks the port is in which state(Listening or not)
+		-tunlp(tcp/udp,numeric,list,port/processID)---
+	curl               ----To check the status in the remote(Ec2) without login into the server
+       &                  ----To run the process in the background
+	kill -9 <processId>----To kill the process
+	kill -3            ----It creates the dump file
+	hostnamectl set-hostname <name> ----- To change the hostname of the Ec2
+	uname              ----  It shows the os family type
+	uname -a            ----  It shows the os family type in detail
+	u name -r  -------> to know the kernel version
+	free -m -----------> to know the memory/ram usuage and it's availablity.
+	df -h     -----------> to know the disc usuage-storage.
+	top       ------------> command is used to know the no of cpu
+	arch     --------------> to know the architcuture like 32 bit or 64 bit.
+	quit/bye ------------ To quit 
+	ctrl+D ------------ To quit from the machine
+	who--->To know how many users have been logged in.
+        	w----> Detailed version of who.
+	whoami----> To know the current user.
+	who am i --->By which user we have logged in with.
+	--purse remove <service>  -----To uninstall the service
+	umask       ---------- It will display the machine umask value 
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Moving no of files into one directory:
+======================================
+Mv filename1 Directoryname
+Mv filename1 filename2 directoryname
+Mv -uvi ------------>u for update
+           ------------->V for verbos to get detailed view
+           ------------->-i for interactive asks to overwrite?
+Mv -u important junk docs------>updates files to a directory.
+Cp -r docs docs2---------------to copy docs
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Removing directory
+===============================
+	rm -r docs ----deletes directory with files in it.
+	rmdirdocs---- deletes empty directory.
+	Rm -r * ------- to remove every directory.
+
+Redirecting and Appending:
+==================================
+0 -----------------standard input
+1 -----------------standard output
+2 -----------------standard error
+
+Ex’s:
+1.Ls 2> error > output
+Cat error
+Ntg
+Cat output
+
+
+2.ls 2 >> error >output
+Cat error ---no file/directory
+Cat output—ntg
+ 
+3. ls 2 >> error 1> output
+Cat output
+
+Redirecting standard error and standard output into same file?
+Sol:  ls > output 2>&1
+Cat output
+
+Note:
+
+Redirecting standard error to standard output.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Sol:  ls > output 2>&1
+Cat output
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+gpg -c filename   --------------------> to encrypt file
+
+gpg file.gpg       ----------------------> to decrypt the encrypted file.
+
+echo 'wget url' | at 01:00   -----------> to Download url at 1AM to current directory.
+
+grep MemTotal /proc/meminfo ----------->Show RAM total seen by the system
+
+grep "model name" /proc/cpuinfo --------> Show CPU(s) info
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+GIT commands:(Linux)
+=======================================================================
+Ssh -I abc.pem ec2-user@publicip (to connect ec2)
+Ssh -I -vvv abc.pem ec2-user@publicip (to know where to debug)
+Pwd --->To know path. 
+Whoami ---->To know the username used to login.
+date---->To know time.
+hostname---->To know Laptop or server name.
+uptime---->To know the last restarted time.
+history---->To know the commands list I have used previously.
+ls---->To know the name of the files.
+ls -l--->To know the detailed information.
+mkdir--->To create folder.
+free-m---->To check ram.
+ls -l *.pem----->To check all pem files.
+Ctrl+ A____ Ctrl+ E
+ctrl+r---->To search something in the information.   → right arrow to get that entire command.
+id root-->To check whether the root user is there or not.
+Id user🡪 To check user is there or not.
+who--->To know how many users have been logged in.?
+tracert🡪 To know the path from local to ec2.
+Traceroute/ Tracepath--->To know the path from ec2 to local.
+ps -ef-->To know which service is running.
+ps -ef | grep ssh--->To filter the information in previous by "ssh" word in this case.
+Sudo su -   -🡪command is used to switch user.
+sudo yum install httpd -y-->To install apache httpd(apache) in this case. yum (to install any software).
+sudo systemctl start httpd-->To start the apache.
+whoami----> To know the current user.
+who am i --->By which user we have logged in with?
+df -->To see hard disc usage.
+free/top ---> To check memory, CPU, load average etc.,
+systemctl enable httpd---> To start os level service if restarted or rebooted, the service won’t be down.
+Last: last command is used to know whom have been logged in or out.
+ls -ltr *.pem--> To get pemfile old to latest.
+#! /bin/bash--> Shell script starts with this command.
+scp -i <pemfile name> <same pemfile name> ec2-user@publicip of bastian:/tmp or :/opt or :/home/ec2-user---> To bring the pemfile from local to ec2.
+Exit/logout: is used to logout from ec2.
+telnet/nc -uz---🡪command is used to check the port no is allowed to the destination or not.
+/div   ---🡪device (hard disk)
+Df -h -🡪Command is used to know how many disks attached.
+Lsblk   / F disk -l -🡪Command is used to know the list of blocks
+Tee -🡪 Command is used to print content in screen as well as file.
+Ls – ltrh -🡪 To know the size of the pem.
+WC -L 🡪Filename
+WC -W 🡪Words in a file.
+WC -C 🡪
+I -🡪to insert.
+:wq! -🡪Force Quit.
+:wq 🡪quit
+Esc + :wq! -🡪write and force quit.
+==================================================================================================================================================================
+TO IGNORE THE FINGERPRINT OF THE EC2
+--------------------------------------
+ssh -o "StrictHostKeyCheckingno" user@host
+ssh -o "StrictHostKeyCheckingno" IP
+
+============================================================================================================================================================
+
+GIT commands:(Linux)
+----------------------------
+
+PWD--->To know the path or current location.
+date---->To know time.
+hostname---->To know Laptop or server name.
+uptime---->To know the last restarted time.
+history---->To know the commands list I have used previously.
+ls---->To know the name/list of the files.
+ls -l--->To know the detailed information.
+ls -la-->To know the original files and shortcut files and hidden files.
+mkdir--->To create a folder.
+free-m---->To check ram.
+last ---> To know all user’s login sessions.
+ls -l *.pem----->To check all pem files.
+ctrl+r---->To search for something in the information.   → right arrow to get that entire command.
+Ctrl +a —> To move cursor to start point
+Ctrl +e → To move the cursor to the end point.
+id root-->To check whether the users are there or not in os.
+who--->To know how many users have been logged in.
+w----> Detailed version of who.
+Traceroute--->To know the path from ec2 to local.
+ps -ef-->To know which service is running.
+ps -ef | grep ssh--->To filter the information in previous by "ssh" word in this case.
+sudo yum install httpd -y-->To install apache httpd(apache) in this case..yum(to install any software).
+sudo systemctl start httpd-->To start the apache.
+whoami----> To know the current user.
+who am i --->By which user we have logged in with.
+df -->To see hard disc usage.
+df -h-->To check number of disks.
+free -m---->To check RAM usage
+free/top ---> To check memory,cpu,load average etc..,
+rm  -fr <folder name> —-> To remove the folder
+
+Pgrep <server name> —-> To know the process id.
+sudo yum repolist —--> To list all repos inside a particular folder
+systemctl enable httpd---> To start os level service if restarted or rebooted,the service won't be down.
+ls -ltr *.pem--> To get pem files old to latest.
+#!/bin/bash--> Shell script starts with this command.
+lsblk--> To know the list of all disks.
+useradd <name>---->To add a user.
+su - <name>--->switch from one user to another.(only root user can switch)
+id <name>---->To know if the user is there or not.
+/root-->default root user directory.
+/home/ec2-user-->default normal user directory.
+ll ---->To display all the folders list.
+passwd <password>--->To give password to the user.
+Ifconfig —-> To get ip of the machine
+uname ----> To know which family of ami used.
+uname a ----> To get clear details.
+arch ----->To know which bit we are using either 32 or 64.
+CMD[systemctl start httpd]---> can be overridden.
+ENTRYPOINT[systemctl start httpd]--->can be overridden.
+chmod 400-->To give only read permission to the file.
+chmod 755-->To give permissions(read,write,execute) to the file.
+vi---->To create a file in shell script.
+i---->To enter into insert mode(edit)(only works in shell file)
+Esc key→ To come back from that file after editing the file.
+:wq---->To exit  from the shell file by saving the file.
+:q! —> To exit a file without saving the file.
+cp -r * /var/www/html/--->To copy and replace all files to a particular path.
+Telnet <destination IP> <source port number> —-> To know the service is open or not.
+Nc -vz <destination IP> <source port number> —-> To know if the service is open or not.
+netstat -anlp | grep <"port number">--->To know whether the port is listening or not.
+echo "this is server1" >/var/www/html/index.html--->To display the message in result(used in services/userdata)
+ssh -o "StrictHostkeyChecking no" <public ip of the ec2 that we want to connect>---->To disable the fingerprint yes/no option
+echo "hello" ---> prints on screen
+echo "hello" >index.html --->Prints on that particular file.
+tee --->prints on both output screen and file.
+> --->used for override.
+>> ---uses for append.
+< --> input
+mkdir -p /var/www/html/football/index.html -->in this example -p refers to make a parent directory(if there is no folder it creates new one)
+> /dev/null --->It won't print either on console or file and sent to the recycle bin.
+Ex: hello.sh >output.log 2>&1
+Here,
+hello.sh -->script
+> --->redirection
+output.log--->file
+2 ----->standard error
+& --->for both error and success.
+1 --->standard output
+ (when there is an error or success use 2>&1 both error and success go to file.)
+cat <file name> → To see content of the given file.
+less <file name> —>To see full details of the file and here we can use arrows to swipe
+q —> quit
+wc -l → To know number of lines in that file
+wc -w —> To know number of words in that file
+wc -c —> To know the number of characters
+Ssh-keygen —--> To generate new ssh key 
+Git init —> To create a new repo in local.
+Git add <file name>—-> To add files to the repo
+Git commit -m <’message you want to give’>
+Git status —> To know the track status in the staging area whether any modifications are done.
+Git branch —> To know current branch
+Git branch -m <new branch name> —-> To change the branch name
+Git remote add <url of remote repository> —->To add files to the remote area.
+Git log —> To know how many commits have been done.
+Git push origin <branch name> —-> To push code from local to remote.
+Git show <committed number> —-> To know the modified date of that commit and file.
+Git clone <link> —> To bring the remote repo to local.
+Git checkout -b <name of the new branch> —--> To create a new branch
+Git checkout <name of the branch you want to switch> —--> To switch from one branch to another branch.
+Git pull —> To bring the changed code to the ec2
+Git branch -d <name of the branch> -branch —> To delete the branch
+Git diff —-> To know the clear changes on commits(like git status)
+Git switch <branch name> —--> switch from one branch to another
+Git stash pop —---> To save files temporarily
+Git revert —-> To undo last step/commit
+Git cherry-pick <commit id> —--> To bring single commit 
+Cat /etc/release —---> To know the ami version
+/var/log/jenkins/jenkins.log —-> To see the logs of jenkins
+Id jenkins —--> To know the user id of jenkins
+Cd /var/lib/jenkins  —-> To see jenkins home directory includes all.
+Kill -9 <process id> —-> To stop or kill the app
+Kill -3  <process id> —> used when the website is slow
+awk ‘{print $<column number>}’ <file name> —-> To filter the columns(specified columns)
+grep -r <”word you want”> <file name> | wc -l —--> To count no of words that you search
+tail <file name> —-> It gives the latest 10 lines on that log
+tail -f <file name> —-> It gives the latest files when the user hits the requests.
+tail -5f <file name> —-> It gives the latest 5 files in this case.
+\ —----> used to break a big command into small pieces
+      Ex: systemctl \
+            Start \
+            httpd
+hostnamectl set-hostname <name> —--> To change host name
+Find newermt <x days> —-> To know when the file is created
+Find searchlocation -mtime +90 —-->To know files older than 90 days in this case.
+Ex:    -rwx-rw-rw  —> file (starts with hyphen{-})
+         drwx-rw-wx—> directory (starts with d)
+r  = 4 = read
+w = 2 = write
+x  = 1 = execute
+Permission value:
+        -rw-rw-r-x
+In this example the first hyphen(-) refers file and the remaining divides into 3 parts
+The first three characters refers to “ownership”
+The second three characters refers to “group”
+The third three characters refers to “others”
+For files = 666 minus(-) umask value = default permissions.
+For directory = 777 minus(-) umask value = default permissions.

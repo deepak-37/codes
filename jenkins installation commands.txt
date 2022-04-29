@@ -1,0 +1,84 @@
+jenkins installation:
+===========================
+______________________________________________________________________________________________________________
+
+#!/bin/bash
+yum install httpd -y
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key  
+sudo amazon-linux-extras install epel
+yum install java-11-openjdk-level
+yum install jenkins
+service jenkins start
+systemctl enable jenkins
+chkconfig jenkins on
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
+
+http://3.110.104.201:8080/
+http://3.110.221.14:8080/
+http://3.110.40.8/
+
+
+
+backend database:hgpA0uMLHPDXgjEqRr7Y
+tenet database-1.c3mvqyd3j5hf.ap-south-1.rds.amazonaws.com 3306
+
+mysql -h database-1.c3mvqyd3j5hf.ap-south-1.rds.amazonaws.com -u backend -p hgpA0uMLHPDXgjEqRr7Y
+
+1.regularly take jenkins backup
+backup plugin
+thin backup...to s3..(cost)
+
+
+change the executor count
+
+ssh -i @ip
+ssh ec2 user
+ssh ip
+create user HP
+
+ /var/lib/jenkins/ .ssh/authorized_keys
+
+jenkins user
+check and run ssh keygen(dont run directly)
+copy id_rsa.pub to apache-ec2...root user
+
+
+vi authorized_keys
+pem overwrite..
+local id_rsa 
+tried to connect again..through ssh
+error: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+
+
+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      (pa token)
+
+
+
+MIIEowIBAAKCAQEAg3JZ0XsiNzg5fvdsHJRK0viB6xwbNFhWUvg37UOFr2KcnCm9
+VfdsUErCv/wquKbKEp9Dd8zrB4x9v6IyRDIkBLRt5uiqC/s6RA5wdZ0nBYYx5P0M
+7l+vMDQaI0DS6jl5nTy9UhzotTitIh42+l9GvBSU+SkdRceLreIqnCvW9ejJyWNw
+VINW/vbRprixLsnm+uaAGtCJS7crvSQUkGvdM7IgcQPmDDsaElw3uJMwBLBSs/k2
+TjkF4nliJSSUUPID+jOsiZoKT85BgiMcQ3SmiaLq8SkohsgsUYdx0+YZ+yKJ3H/R
+YTS1nrWR2ROWNpGoawRk85dIVzgrpf5mktg+GwIDAQABAoIBAHlLwE5qTfyeyY+8
+SetlfFaKM3j9iq0XBzGxFArB0E8ztEj2y1zU4QKGuofm7pVOdBITHXMjiY6Bulho
+F/KOQmaFCRWXhbNgtTewC169EhEq8Efaq2Acs9DLg4McgoTZXLwYHKv1OVhhYIKn
+VxxbZy6P35i8s+J8bQycM63BVq+8MNfPhVaqmTgdTSjENDUqTFM0+qF/OO77F6Y/
+z3iQ8MhkjQ8/f4dpT7Q70VaMH3zaA4Vhs0c2W+FsKir7txlIE2AVhBg6Zzrpvd5u
+nRMvDNKRV4Otg6/ttenukSE2DSqdFtUH8hRxNgx+UnSe3C18gWQ/6FMH+uqn+4hH
+fsf9CgECgYEA6DQbGF1JV4exdT5n11jweax7n2wIMqZDxGt8uxfdwyaEEhYOdusI
+LO+uenqb0u7qvltOMw28UvOz3utI+Syb5jBYk+eSuf/YoqO1/gDWVYGDS1BbWA/i
+YrV388RrwlSjR/1VR+DH7TCzTKrHbf3fAcoCQDYP/j7HU0Hp9LFC3cECgYEAkOrf
+v2m9frNwE2ucosypUN7cmrmLL31JhM81kudgH/Az+es4ScO+7TatgzAgWSK8UN+h
+aMY6jFPxKnhl3d45G8XbJXF9a0es6OnJKhryB6yLVpg7Wi+bRwdo1NbxvTmC0uwO
+jT338HNXSr03wBG3ezpo6515aeIcDkkTr9a7CtsCgYEAzqA/VCj+8KLQ6PHFWb3N
+D5jK0QxDJz8Ioqq7bYlJTzTg5W83I971gXcvHdIpA0STIx0AszGP2Yj/EGjyoLhv
+aiCvUb4JtPXUArYHZqW8FI6RFN3GytAntYqh2Qt6kIzcV105HCMMBScHBjwaBuiY
+H3FxG06AYM/gc1f+Jj3usIECgYAvCGux3gmoU2huhSCDHdVd79a9SLbJpOn1dqK2
+mO1zsCvOUu8j0annpzVNPJNjGojv3oSuUpex75R36jd1eKgkQWTMlDbWWJ7fwPCO
+/8vJfdCDPEkXDhhhRyBY46H1ffLdrctTP+d2XJjaIuszJQzdq6ldvvAm00GzyTfg
+e9qcvQKBgHplQoTuM16xGzy5Q1rvO8keoUT4iZ57fB4n9kUzqamG70LDEg8Xe4ec
+7yTOFqYa0FZH9Y734otm1rWyCdS5ZnWTXTBjHJ6IiRMLMZNLbQkdrz+mNJkCOMb2
+JmME7PPUxTT6NdXSkRTzoN6kF+UUOuBpHUqtlYQL01LwnAzqxoby    (pem file)

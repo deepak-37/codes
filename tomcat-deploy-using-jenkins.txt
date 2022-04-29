@@ -1,0 +1,125 @@
+tomcat deployment using jenkins:
+===================================
+after installing jenkins, switch to root and switch to jenkins user.
+   13  cd /opt
+   15   sudo wget https://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz
+   16  cd /etc/sudoers.d/
+   17  pwd
+   18  exit
+   19  cd /opt
+   28  sudo tar -xvzf apache-maven-3.8.4-bin.tar.gz	
+   31  sudo mv apache-maven-3.8.4 maven     #renaming
+   32  ls -la
+   35  sudo rm -rf apache-maven-3.8.4-bin.tar.gz #to delete the zipped file.       
+   36  ls -la
+   37  /opt/maven/bin/mvn  #going to full path and checking maven is working or not.
+git@github.com:Venkatesh-somarapu15/spring-petclinic.git        (open this)
+and fork it.
+create one job,
+copy the repo's ssh url and paste it on the 1st job.
+and change the branch master to main and build it to sync files from scm.
+after that in build  add the commands to make a package like -------------------- /opt/maven/bin/mvn clean package
+
+
+create another job,
+ https://github.com/kliakos/sparkjava-war-example (open this) and fork it.
+copy the repo's ssh url and paste it on the 2nd job.
+after that in build  add the commands to make a package like -------------------- /opt/maven/bin/mvn clean package
+
+   1  ps  -ef 
+    2  ps  -ef | grep -i tomcat
+    3  cd /opt/
+    4  ls -l
+    5  java
+    6  sudo amazon-linux-extras install epel 
+    7  sudo amazon-linux-extras install epel -y
+    8  sudo amazon-linux-extras install java-openjdk11 -y
+    9  sudo amazon-linux-extras install java-openjdk11 -y
+   10  java -version
+   11  ls -l
+   12  cd tomcat/
+   13  ls -l
+   14  cd logs
+   15  ls -l
+   16  sudo sh /opt/tomcat/bin/startup.sh 
+   17  ps -ef | grep -i tomcat
+   18  ls -l
+   19  ls -lh
+   20  cat catalina.out 
+   21  sudo cat catalina.out 
+   22  ls -ltrh
+   23  ls -lh
+   24  sudo cat localhost_access_log.2022-02-03.txt
+   26  sudo tail -f localhost_access_log.2022-02-03.txt
+   27  ls -lh
+   28  sudo cat localhost_access_log.2022-02-03.txt
+   29  cd /tmp/
+   30  wget https://www.oracle.com/webfolder/technetwork/tutorials/obe/fmw/wls/10g/r3/cluster/session_state/files/shoppingcart.zip
+   31  ls  -l
+   32  unzip  shoppingcart.zip 
+   33  ls -l
+   34  pwd
+   35  sudo cp shoppingcart.war /opt/tomcat/webapps/ 
+   36  ls -l /opt/tomcat/webapps/ 
+   37  cd /opt/tomcat/logs/
+   38  ls -l
+   39  sudo tail -100f catalina.out 
+   40  history 
+==============================================================
+steps for tomcat
+===============
+pre-requisites:
+==> Java
+
+# Install JAVA
+  sudo amazon-linux-extras install epel -y
+  sudo amazon-linux-extras install java-openjdk11 -y
+
+===> whenever we are installing, any third-party softwares , we have to install on "/opt(prefer) or /usr"
+  
+# To install the Tomcat, we have two ways -------yum install
+                                        -------Download zip and extract(preferable)
+# Go to Apache official website(apache.org), go to Downloads, look for your customized version(64-bit.zip-windows&linux) and copy the link address
+# Download the zip/tar package 
+  #!/bin/bash 
+  cd /opt/
+  sudo wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.58/bin/apache-tomcat-9.0.58-windows-x64.zip
+
+# Extract zip 
+  sudo unzip apache-tomcat-9.0.58-windows-x64.zip
+
+# Delete the zip 
+  sudo rm -f apache-tomcat-9.0.58-windows-x64.zip
+
+# Rename the file
+  sudo mv apache-tomcat-9.0.58 tomcat
+
+# Give the permission
+  sudo chmod -R 755 /opt/tomcat/
+
+# start the Tomcat
+  sudo sh /opt/tomcat/bin/startup.sh
+ ps -ef | grep -i tomcat
+   19  ls -lh 
+   cd /opt
+   cd tomcat/
+   ll
+   cd logs/
+the full path is cd /opt/tomcat/logs/
+   21  sudo cat catalina.out 
+   24  sudo cat localhost_access_log.2022-02-03.txt
+   26  sudo tail -f localhost_access_log.2022-02-03.txt
+   27  ls -lh
+   28  sudo cat localhost_access_log.2022-02-03.txt
+we'll create some temp location to deploy the java project.
+   29  cd /tmp/
+   30  wget https://www.oracle.com/webfolder/technetwork/tutorials/obe/fmw/wls/10g/r3/cluster/session_state/files/shoppingcart.zip
+   31  ls  -l
+   32  unzip  shoppingcart.zip 
+   33  ls -l
+   34  pwd
+   35  sudo cp shoppingcart.war /opt/tomcat/webapps/            ( to copy the extracted file to the /opt/tomcat/webapps/ )   note:all java projects to be deployed in this path.
+   36  ls -l /opt/tomcat/webapps/ 
+   37  cd /opt/tomcat/logs/
+   38  ls -l
+   39  	 

@@ -1,0 +1,174 @@
+private
+in a region
+in all az
+large network 
+so it divided into smaller groups called subnets
+why
+cloud privacy&security 
+extra layer security ease of 
+default vpc & customised vpc
+default is created by aws
+pre configured
+custom non default
+we have to create subnet,nat,security group,igw etc.,
+ip address
+unique entity to each device in a network 
+used to locate the host in network 
+through networkid & host id present in ip address
+xxx.xx.xx.xx.xx/16
+4 pats octate
+8 bits
+32 bits
+cidr
+class lesss inter domain routing
+cidr range 
+represent ip address
+ex:
+172.31.0.0/16
+16:no of bits 
+8/8/8/8
+in those 32...16 are occupied 
+16 are remaining 2 to the power 16 ip's are availabe
+key components of vpc
+igw and nat:routing of traffic in pub network
+dns:names used over internet into ip address
+elastic ip:ip never changes
+vpc end point:private connection betweem vpc and other aws services without internet
+network interface:point of connection between public and private network
+egress only IG:outbund communication from ec2 over ipv6
+route tables:how traffic routed between each subnet
+vpc peering:connection between vpc
+subnets:
+it is logical sub division of large network
+ip's with common prefix are same subnet
+ex:devices with ip address starting from 172.31.
+private/public
+private not exposed to world
+uses only private ip
+backend applications 
+public
+exposed through internet
+make use of public and private external facing applications like webserver
+ex 
+facebook bifurcation 
+
+hands on
+vpc name :devps
+cidr:10.0.0.0/16
+subnets :1 public + 1 private 
+seperate availability zones
+igw 1
+route tables: 1 in public subnet
+security groups :2
+nat gateway :1 
+
+
+route tables:where the network traffic has to be routed 
+it specifies the destination subnet (prefix) and gateway/router to reach it
+
+internet gateway
+public subnet needs to communicate over the internet 
+
+instance needs have internet access ..global ip and relevant sg'same
+rt of subnet in which instance is present must point to igw
+subnet attached to igw is called public subnet
+
+natnetwork address translation
+it enables instances in private subnet to access internet or
+ other aws resources but prevent internet from initiating connections to the instance
+ 2 way communication
+ in sufficient for hackers
+ for security and economy
+
+ security groups
+ stateful
+ only allow rules
+ fire wall at instace level
+ control inbound and out bound trafic for instance
+
+ nacl
+ subnet level security 
+ both allow and deny rulesfor subnet
+
+ nacl stateless
+ defined per subnet
+
+ vpc peering 
+vpc to vpc via direct network route
+initiate peering requests
+accept peering requests
+create routes
+vpn
+vpc to data center  through IPS internet prtocol security protocol 
+direct connect
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

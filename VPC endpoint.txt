@@ -1,0 +1,41 @@
+vpc endpoint:
+============================
+VPC endpoint enables you to privately connect your vpc to the supported aws services.
+Instances in your vpc don't  require public ip addresses to communicate with the resources in the service.
+Endpoints are virtual devices which enables  the option to connect to the aws serivces within aws.
+
+steps:
+-----------
+create own vpc with the cidr ------> 10.0.0.0/16
+create two subnets -----------------> pub-subnet-1----->10.0.0.0/24
+				   priv-subnet-1------>10.0.1.0/24
+
+create one igw and attach it to the own vpc.
+
+create route table , route table name: route-1, select own vpc and create route table.
+select created route table---->go on to the router ---edit routes-----0.0.0.0./0-------igw.
+and go on to the subnet associations and select public subnet to provide internet to it.
+
+create two ec2's:
+one in public subnet ----select my vpc, public subnet, enable auto-assing public ip while launching the public ec2.
+one in private subeet----select my vpc, private subnet, disable auto-assign public ip .
+sg----must be 22-myip to connect and 22-anywhere.
+
+create endpoint ---select aws services-------select the one ending with s3 ----with --gateway (type).
+----> select ownvpc
+----->select private subnet.
+------>create endpoint.
+
+then connect to the public ec2 
+sudo su -
+vi anypemfile.pem
+just provide permissions to connect to the private ec2 like chmod 700 anypemfile.pem
+then connect to the private subnet using command :    ssh -i anypemfile.pem ec2-user@private ip of private ec2.
+
+create a role and attach it to the private subnet to access the content of s3.
+after connecting to the private subnet 
+sudo su -
+aws s3 ls (to get list of buckets of s3)
+aws s3 mb s3://newbucketname   (to make bucket in s3)
+aws s3 rb s3://newbucketname     (to remove bucket in s3)
+
